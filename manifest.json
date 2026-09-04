@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name" : "Skratch",
+    "version" : "0.1.0",
+    "description" : "Extract contacts and business information from webpages",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_title": "Skratch"
+    },
+    "background": {
+        "service_worker": "background/service-worker.js"
+    },
+      "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"]
+    }
+  ]
+
+}
