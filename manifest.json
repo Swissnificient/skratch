@@ -1,25 +1,35 @@
 {
-    "manifest_version": 3,
-    "name" : "Skratch",
-    "version" : "0.1.0",
-    "description" : "Extract contacts and business information from webpages",
-    "permissions": [
-        "activeTab",
-        "storage",
-        "scripting"
-    ],
-    "action": {
-        "default_popup": "popup/popup.html",
-        "default_title": "Skratch"
-    },
-    "background": {
-        "service_worker": "background/service-worker.js"
-    },
-      "content_scripts": [
+  "manifest_version": 3,
+  "name": "Skratch",
+  "version": "0.2.2",
+  "description": "Extract public business leads from webpages and Google Maps.",
+  "permissions": [
+    "activeTab",
+    "notifications",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Skratch"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content/content.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/email-extractor.js",
+        "content/maps-extractor.js",
+        "content/content.js"
+      ]
     }
   ]
-
 }

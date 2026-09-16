@@ -1,28 +1,7 @@
-body {
-  width: 320px;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.container {
-  padding: 20px;
-}
-
-h1 {
-  margin: 0;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  cursor: pointer;
-}
-
-#status {
-  margin-top: 15px;
-}
-
-#results {
-  margin-top: 15px;
-}
+body { width: 340px; margin: 0; font: 14px Arial, sans-serif; }
+.container { padding: 16px; }
+h1 { margin: 0; }
+button { width: 100%; padding: 9px; margin-top: 8px; cursor: pointer; }
+#status { min-height: 18px; margin: 12px 0 6px; }
+#results { max-height: 220px; overflow: auto; }
+#results div { padding: 5px 0; border-bottom: 1px solid #eee; word-break: break-word; }
