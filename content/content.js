@@ -1,20 +1,29 @@
+const CONTENT_ACTIONS = new Set(['scrapeEmails', 'scrapeMaps', 'businessDetails']);
+
 chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
-  (async () => {
-    if (message.action === 'scrapeEmails') {
-      sendResponse({ emails: extractEmails() });
-      return;
-    }
+  if (!CONTENT_ACTIONS.has(message?.action)) return false;
 
-    if (message.action === 'scrapeMaps') {
-      await loadMapResults();
-      sendResponse({ leads: extractMapResults() });
-      return;
-    }
-
-    if (message.action === 'businessDetails') {
-      sendResponse(await extractBusinessDetails());
-    }
-  })().catch(error => sendResponse({ error: error.message }));
+  void handleContentMessage(message)
+    .then(sendResponse)
+    .catch(error => sendResponse({ error: error instanceof Error ? error.message : String(error) }));
 
   return true;
 });
+
+async function handleContentMessage(message) {
+  if (message.action === 'scrapeEmails') {
+    return { emails: extractEmails() };
+  }
+
+  if (message.action === 'scrapeMaps') {
+    const options = { maxResults: 250, maxDurationMs: 30_000 };
+    const pagination = await loadMapResults(options);
+    return { leads: extractMapResults(options.maxResults), pagination };
+  }
+
+  if (message.action === 'businessDetails') {
+    return extractBusinessDetails();
+  }
+
+  throw new Error('Unsupported content action.');
+}
