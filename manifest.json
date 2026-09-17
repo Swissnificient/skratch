@@ -1,35 +1,48 @@
 {
   "manifest_version": 3,
   "name": "Skratch",
-  "version": "0.2.2",
-  "description": "Extract public business leads from webpages and Google Maps.",
+  "version": "0.4.0",
+  "description": "Extract and locally manage public business leads from webpages and Google Maps.",
   "permissions": [
-    "activeTab",
+    "alarms",
     "notifications",
-    "scripting",
     "storage",
     "tabs"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "http://*/*",
+    "https://*/*"
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Skratch"
+    "default_title": "Skratch",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png"
+    }
   },
   "background": {
-    "service_worker": "background/service-worker.js"
+    "service_worker": "background/service-worker.js",
+    "type": "module"
   },
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "http://*/*",
+        "https://*/*"
       ],
       "js": [
         "content/email-extractor.js",
         "content/maps-extractor.js",
         "content/content.js"
-      ]
+      ],
+      "run_at": "document_idle"
     }
-  ]
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
 }
